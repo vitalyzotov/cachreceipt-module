@@ -1,0 +1,36 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="28" author="vzotov">
+        <renameTable oldTableName="CHECK_ITEM_CAT_" newTableName="PURCHASE_CATEGORY"/>
+    </changeSet>
+
+    <changeSet id="29" author="vzotov">
+        <addColumn tableName="PURCHASE_CATEGORY">
+            <column name="CATEGORY_ID" type="VARCHAR(255)" remarks="Идентификатор">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="31" author="vzotov" dbms="mysql,mariadb,!h2">
+        <sql>
+            update PURCHASE_CATEGORY set CATEGORY_ID=MD5(NAME);
+        </sql>
+    </changeSet>
+
+    <changeSet id="32" author="vzotov">
+        <addNotNullConstraint tableName="PURCHASE_CATEGORY" columnName="CATEGORY_ID" columnDataType="VARCHAR(255)"/>
+        <addUniqueConstraint tableName="PURCHASE_CATEGORY" columnNames="CATEGORY_ID"/>
+    </changeSet>
+
+    <changeSet id="33" author="vzotov">
+        <addForeignKeyConstraint baseTableName="PURCHASE_" baseColumnNames="CATEGORY_ID"
+                                 constraintName="FK_PURCHASE_CATEGORY"
+                                 referencedTableName="PURCHASE_CATEGORY"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+
+</databaseChangeLog>

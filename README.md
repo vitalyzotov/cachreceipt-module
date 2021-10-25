@@ -1,1 +1,1 @@
-# cachreceipt-module
+# cashreceipt-module
