@@ -42,12 +42,6 @@ public class Nalogru2Tool implements CommandLineRunner {
         return objectMapper;
     }
 
-//    @Bean
-//    @Qualifier("extraInterceptors")
-//    public List<ClientHttpRequestInterceptor> extraInterceptors() {
-//        return Collections.singletonList(new LoggingRequestInterceptor());
-//    }
-
     public static void main(String... args) throws Exception {
         SpringApplication.run(Nalogru2Tool.class, args);
     }

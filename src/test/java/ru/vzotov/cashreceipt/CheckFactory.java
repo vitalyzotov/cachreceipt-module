@@ -21,7 +21,7 @@ import java.util.Collections;
 public class CheckFactory {
 
     public Check createCheckSimple() {
-        Check check = new Check(
+        return new Check(
                 LocalDateTime.now(),
                 1L,
                 1L,
@@ -37,11 +37,10 @@ public class CheckFactory {
                 new Products(Collections.emptyList(), Collections.emptyList(), Money.rubles(10)),
                 new PaymentInfo(Money.kopecks(0), Money.kopecks(1000))
         );
-        return check;
     }
 
     public Check createCheckWithLongUser() {
-        Check check = new Check(
+        return new Check(
                 LocalDateTime.now(),
                 1L,
                 1L,
@@ -58,7 +57,6 @@ public class CheckFactory {
                 new Products(Collections.emptyList(), Collections.emptyList(), Money.rubles(10)),
                 new PaymentInfo(Money.kopecks(0), Money.kopecks(1000))
         );
-        return check;
     }
 
     public Check createCheckFromBillchecker(String path) throws IOException {

@@ -1,17 +1,17 @@
 package ru.vzotov.cashreceipt.nalogru;
 
-import ru.vzotov.cashreceipt.domain.model.Check;
-import ru.vzotov.cashreceipt.CheckFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.vzotov.cashreceipt.CheckFactory;
+import ru.vzotov.cashreceipt.domain.model.Check;
 
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @RunWith(JUnit4.class)
 public class CheckParsingServiceTest {
@@ -114,9 +114,8 @@ public class CheckParsingServiceTest {
 
     @Test
     public void parse022() throws IOException {
-        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
-            new CheckFactory().createCheckFromJson("/check022.json");
-        }).isInstanceOf(Exception.class);
+        assertThatThrownBy(() -> new CheckFactory().createCheckFromJson("/check022.json"))
+                .isInstanceOf(Exception.class);
     }
 
 }

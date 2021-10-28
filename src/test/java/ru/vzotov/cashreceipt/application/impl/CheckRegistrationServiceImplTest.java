@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,7 +41,7 @@ public class CheckRegistrationServiceImplTest {
     public void registerCheck() throws CheckNotFoundException, IOException {
         final QRCodeData qr = new QRCodeData("t=20180629T002100&s=1109.00&fn=9286000100174236&i=6079&fp=3461764748&n=1");
         final QRCodeData qrNonExistent = new QRCodeData("t=20180717T1708&s=150.00&fn=9288000100080294&i=2056&fp=2024263777&n=2");
-        try (BufferedReader data = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/check010.json")))) {
+        try (BufferedReader data = new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/check010.json"))))) {
             String dataString = data.lines().collect(Collectors.joining(System.lineSeparator()));
 
             given(this.nalogru.findByQRCodeData(qr)).willReturn(dataString);

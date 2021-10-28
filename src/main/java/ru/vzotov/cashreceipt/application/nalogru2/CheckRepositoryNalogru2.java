@@ -80,8 +80,7 @@ public class CheckRepositoryNalogru2 {
         try {
             log.info("Find in nalog.ru by qr code {}", data);
             Ticket ticket = findTicket(data);
-            String info = getTicketInfoAsString(ticket);
-            return info;
+            return getTicketInfoAsString(ticket);
         } catch (IllegalArgumentException e) {
             log.error("Unable to load check from nalog.ru", e);
         } catch (RestClientException e) {
@@ -112,7 +111,7 @@ public class CheckRepositoryNalogru2 {
 
     private RestTemplate buildRestTemplate() {
         final RestTemplate r = restTemplateBuilder
-                .additionalInterceptors((ClientHttpRequestInterceptor) (request, body, execution) -> {
+                .additionalInterceptors((request, body, execution) -> {
                     final HttpHeaders headers = request.getHeaders();
 
                     headers.add("ClientVersion", clientVersion);

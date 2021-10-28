@@ -1,17 +1,17 @@
 package ru.vzotov.cashreceipt.interfaces.accounting.facade.impl.assembler;
 
-import ru.vzotov.cashreceipt.domain.model.Check;
+import org.junit.Test;
 import ru.vzotov.cashreceipt.CheckFactory;
+import ru.vzotov.cashreceipt.domain.model.Check;
 import ru.vzotov.cashreceipt.interfaces.accounting.facade.dto.CheckDTO;
 import ru.vzotov.cashreceipt.interfaces.accounting.facade.dto.ItemDTO;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.time.Month.JULY;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -25,7 +25,8 @@ public class CheckDTOAssemblerTest {
         final CheckDTO dto = assembler.toDTO(check);
 
         assertThat(dto).isNotNull();
-        assertThat(dto.getDateTime()).isEqualByComparingTo(LocalDateTime.of(2018, Month.JULY, 17, 17, 8, 00));
+        assertThat(dto.getDateTime())
+                .isEqualByComparingTo(LocalDateTime.of(2018, JULY, 17, 17, 8, 0));
 
         assertThat(dto.getTotalSum().getAmount()).isEqualTo(15000);
         assertThat(dto.getTotalSum().getCurrency()).isEqualTo("RUR");

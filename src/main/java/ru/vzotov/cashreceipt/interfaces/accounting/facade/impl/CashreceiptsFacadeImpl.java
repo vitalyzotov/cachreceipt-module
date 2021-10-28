@@ -25,7 +25,6 @@ import ru.vzotov.cashreceipt.interfaces.common.assembler.Assembler;
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,17 +39,23 @@ public class CashreceiptsFacadeImpl implements CashreceiptsFacade {
 
     private static final Logger log = LoggerFactory.getLogger(CashreceiptsFacadeImpl.class);
 
-    @Autowired
-    private CheckRepository checkRepository;
+    private final CheckRepository checkRepository;
 
-    @Autowired
-    private PurchaseCategoryRepository categoryRepository;
+    private final PurchaseCategoryRepository categoryRepository;
 
-    @Autowired
-    private CheckQRCodeRepository codeRepository;
+    private final CheckQRCodeRepository codeRepository;
 
-    @Autowired
-    private CheckRegistrationService checkRegistrationService;
+    private final CheckRegistrationService checkRegistrationService;
+
+    public CashreceiptsFacadeImpl(CheckRepository checkRepository,
+                                  PurchaseCategoryRepository categoryRepository,
+                                  CheckQRCodeRepository codeRepository,
+                                  CheckRegistrationService checkRegistrationService) {
+        this.checkRepository = checkRepository;
+        this.categoryRepository = categoryRepository;
+        this.codeRepository = codeRepository;
+        this.checkRegistrationService = checkRegistrationService;
+    }
 
     /**
      * {@inheritDoc}
@@ -78,9 +83,7 @@ public class CashreceiptsFacadeImpl implements CashreceiptsFacade {
         final Check oldest = checkRepository.findOldest();
 
         if (oldest != null) {
-            final LocalDate from = oldest.dateTime().atZone(zoneId).toLocalDate().withDayOfMonth(1);
-
-            LocalDate startOfMonth = from;
+            LocalDate startOfMonth = oldest.dateTime().atZone(zoneId).toLocalDate().withDayOfMonth(1);
             LocalDate endOfMonth;
             do {
                 endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth());

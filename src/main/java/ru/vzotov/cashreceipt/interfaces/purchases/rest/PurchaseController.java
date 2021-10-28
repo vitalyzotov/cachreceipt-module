@@ -42,8 +42,7 @@ public class PurchaseController {
     @DeleteMapping("{purchaseId}")
     public PurchaseDeleteResponse deletePurchaseById(@PathVariable String purchaseId) {
         PurchaseId id = purchasesFacade.deletePurchaseById(purchaseId);
-        PurchaseDeleteResponse response = new PurchaseDeleteResponse(id.value());
-        return response;
+        return new PurchaseDeleteResponse(id.value());
     }
 
     @GetMapping

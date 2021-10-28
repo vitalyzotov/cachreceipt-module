@@ -138,18 +138,6 @@
                 <column name="LOADED_AT" nullable="true"/>
             </basic>
 
-            <element-collection name="operations">
-                <collection-table name="QR_OPERATIONS">
-                    <join-column name="QR_ID"/>
-                </collection-table>
-            </element-collection>
-
-            <element-collection name="holds">
-                <collection-table name="QR_HOLDS">
-                    <join-column name="QR_ID"/>
-                </collection-table>
-            </element-collection>
-
             <embedded name="code"/>
             <embedded name="checkId"/>
         </attributes>

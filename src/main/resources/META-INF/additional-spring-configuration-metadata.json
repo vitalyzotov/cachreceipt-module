@@ -1,0 +1,43 @@
+{
+  "properties": [
+    {
+      "name": "nalogru.address",
+      "type": "java.lang.String",
+      "description": "Description for nalogru.address."
+    },
+    {
+      "name": "nalogru.username",
+      "type": "java.lang.String",
+      "description": "Description for nalogru.username."
+    },
+    {
+      "name": "nalogru.password",
+      "type": "java.lang.String",
+      "description": "Description for nalogru.password."
+    },
+    {
+      "name": "nalogru2.address",
+      "type": "java.lang.String",
+      "description": "Description for nalogru2.address."
+    },
+    {
+      "name": "nalogru2.username",
+      "type": "java.lang.String",
+      "description": "Description for nalogru2.username."
+    },
+    {
+      "name": "nalogru2.deviceId",
+      "type": "java.lang.String",
+      "description": "Description for nalogru2.deviceId."
+    },
+    {
+      "name": "nalogru2.clientSecret",
+      "type": "java.lang.String",
+      "description": "Description for nalogru2.clientSecret."
+    },
+    {
+      "name": "nalogru2.password",
+      "type": "java.lang.String",
+      "description": "Description for nalogru2.password."
+    }
+  ] }

@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.time.Month.JUNE;
@@ -81,8 +82,6 @@ public class AccountingControllerTest {
                 1L,
                 OffsetDateTime.of(LocalDateTime.of(2018, JUNE, 16, 14, 0, 0), ZoneOffset.UTC)
         );
-//        assertThat(response.getBody()[0]).isEqualToComparingOnlyGivenFields(
-//                expected, "checkId", "state", "loadingTryCount", "loadedAt");
         assertThat(response.getBody()[0]).isEqualToComparingFieldByFieldRecursively(expected);
     }
 
@@ -97,7 +96,7 @@ public class AccountingControllerTest {
         final String qrValue = "t=20180717T1655&s=1350.00&fn=9288000100080483&i=944&fp=2361761706&n=1";
         final QRCodeData qr = new QRCodeData(qrValue);
 
-        try (BufferedReader data = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/check017.json")))) {
+        try (BufferedReader data = new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/check017.json"))))) {
             String dataString = data.lines().collect(Collectors.joining(System.lineSeparator()));
 
             given(this.nalogru.findByQRCodeData(qr)).willReturn(dataString);

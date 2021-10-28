@@ -36,7 +36,7 @@ public class CheckRepositoryNalogru {
                                   @Value("${nalogru.username}") String username, @Value("${nalogru.password}") String password) {
         this.restTemplate = restTemplateBuilder
                 .basicAuthorization(username, password)
-                .additionalInterceptors((ClientHttpRequestInterceptor) (request, body, execution) -> {
+                .additionalInterceptors((request, body, execution) -> {
                     request.getHeaders().add("device-os", "");
                     request.getHeaders().add("device-id", "");
                     return execution.execute(request, body);
@@ -55,7 +55,7 @@ public class CheckRepositoryNalogru {
         parameters.put("fp", data.fiscalSign().value());
         parameters.put("date", data.dateTime().toISOString());
         parameters.put("sum", data.totalSum().rawAmount());
-        ResponseEntity<Void> response = null;
+        ResponseEntity<Void> response;
         try {
             response = restTemplate.getForEntity(url, Void.class, parameters);
             if (response.getStatusCode().is4xxClientError()) {

@@ -61,9 +61,6 @@ public class PurchaseControllerTest {
         PurchaseStoreRequest request = new PurchaseStoreRequest();
         request.setCheckId("20180616135500_65624_8710000100313204_110992_2128735201_1");
         request.setName("Позиция с другим названием");
-        //request.setDateTime(LocalDateTime.of(2018, Month.JUNE, 16, 13, 55, 00));
-        //request.setPrice(new MoneyDTO(50000, "RUR"));
-        //request.setQuantity(1.5d);
         request.setCategoryId("id-12345678901234567890");
 
         ResponseEntity<PurchaseStoreResponse> response = this.restTemplate.exchange(

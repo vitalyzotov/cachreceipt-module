@@ -1,14 +1,5 @@
 package ru.vzotov.cashreceipt.infrastructure.persistence.jpa;
 
-import org.springframework.transaction.annotation.Transactional;
-import ru.vzotov.cashreceipt.domain.model.Check;
-import ru.vzotov.cashreceipt.domain.model.CheckId;
-import ru.vzotov.cashreceipt.domain.model.PurchaseCategory;
-import ru.vzotov.cashreceipt.domain.model.QRCodeData;
-import ru.vzotov.cashreceipt.CheckFactory;
-import ru.vzotov.cashreceipt.config.DatasourceConfig;
-import ru.vzotov.cashreceipt.domain.model.PurchaseCategoryRepository;
-import ru.vzotov.cashreceipt.domain.model.CheckRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.transaction.annotation.Transactional;
+import ru.vzotov.cashreceipt.CheckFactory;
+import ru.vzotov.cashreceipt.config.DatasourceConfig;
+import ru.vzotov.cashreceipt.domain.model.Check;
+import ru.vzotov.cashreceipt.domain.model.CheckId;
+import ru.vzotov.cashreceipt.domain.model.CheckRepository;
+import ru.vzotov.cashreceipt.domain.model.PurchaseCategory;
+import ru.vzotov.cashreceipt.domain.model.PurchaseCategoryRepository;
+import ru.vzotov.cashreceipt.domain.model.QRCodeData;
 
 
 @RunWith(SpringRunner.class)

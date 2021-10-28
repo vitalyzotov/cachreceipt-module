@@ -14,7 +14,6 @@ import ru.vzotov.cashreceipt.domain.model.CheckRepository;
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,29 +43,34 @@ public class CheckRegistrationServiceImpl implements CheckRegistrationService {
      * Репозиторий загруженных чеков.
      * Позволяет работать с чеками в БД.
      */
-    @Autowired
-    private CheckRepository checkRepository;
+    private final CheckRepository checkRepository;
 
     /**
      * Репозиторий зарегистрированных QR кодов.
      * Позволяет работать с QR кодами в БД.
      */
-    @Autowired
-    private CheckQRCodeRepository qrCodeRepository;
+    private final CheckQRCodeRepository qrCodeRepository;
 
     /**
      * Сервис парсинга данных чека.
      */
-    @Autowired
-    @Qualifier("nalogru2Parser")
-    private CheckParsingService checkParsingService;
+    private final CheckParsingService checkParsingService;
 
-    @Autowired
-    private CheckRepositoryNalogru2 nalogru;
+    private final CheckRepositoryNalogru2 nalogru;
 
     private long maxTryCount = 250;
 
     private CheckSelectionStrategy selectionStrategy = new RandomSelectionStrategy();
+
+    public CheckRegistrationServiceImpl(CheckRepository checkRepository,
+                                        CheckQRCodeRepository qrCodeRepository,
+                                        @Qualifier("nalogru2Parser") CheckParsingService checkParsingService,
+                                        CheckRepositoryNalogru2 nalogru) {
+        this.checkRepository = checkRepository;
+        this.qrCodeRepository = qrCodeRepository;
+        this.checkParsingService = checkParsingService;
+        this.nalogru = nalogru;
+    }
 
     @Override
     public CheckId registerCheck(QRCodeData qrCodeData) throws CheckNotFoundException, IOException {

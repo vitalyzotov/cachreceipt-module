@@ -7,7 +7,7 @@ import ru.vzotov.purchase.domain.model.Purchase;
 
 public class PurchaseDTOAssembler extends AbstractAssembler<PurchaseDTO, Purchase> {
 
-    private MoneyDTOAssembler moneyAssembler = new MoneyDTOAssembler();
+    private final MoneyDTOAssembler moneyAssembler = new MoneyDTOAssembler();
 
     @Override
     public PurchaseDTO toDTO(Purchase model) {

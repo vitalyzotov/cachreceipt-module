@@ -1,20 +1,19 @@
 package ru.vzotov.cashreceipt.interfaces.purchases.facade.impl;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.vzotov.cashreceipt.domain.model.Check;
 import ru.vzotov.cashreceipt.domain.model.CheckId;
-import ru.vzotov.cashreceipt.domain.model.PurchaseCategoryId;
-import ru.vzotov.domain.model.Money;
-import ru.vzotov.purchase.domain.model.Purchase;
-import ru.vzotov.purchase.domain.model.PurchaseId;
-import ru.vzotov.purchases.domain.model.PurchaseRepository;
 import ru.vzotov.cashreceipt.domain.model.CheckRepository;
+import ru.vzotov.cashreceipt.domain.model.PurchaseCategoryId;
 import ru.vzotov.cashreceipt.domain.model.PurchaseCategoryRepository;
 import ru.vzotov.cashreceipt.interfaces.purchases.facade.PurchasesFacade;
 import ru.vzotov.cashreceipt.interfaces.purchases.facade.dto.PurchaseDTO;
 import ru.vzotov.cashreceipt.interfaces.purchases.facade.impl.assembler.PurchaseDTOAssembler;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import ru.vzotov.domain.model.Money;
+import ru.vzotov.purchase.domain.model.Purchase;
+import ru.vzotov.purchase.domain.model.PurchaseId;
+import ru.vzotov.purchases.domain.model.PurchaseRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,14 +24,19 @@ import java.util.stream.Collectors;
 @Service
 public class PurchaseFacadeImpl implements PurchasesFacade {
 
-    @Autowired
-    private PurchaseRepository purchaseRepository;
+    private final PurchaseRepository purchaseRepository;
 
-    @Autowired
-    private PurchaseCategoryRepository categoryRepository;
+    private final PurchaseCategoryRepository categoryRepository;
 
-    @Autowired
-    private CheckRepository checkRepository;
+    private final CheckRepository checkRepository;
+
+    public PurchaseFacadeImpl(PurchaseRepository purchaseRepository,
+                              PurchaseCategoryRepository categoryRepository,
+                              CheckRepository checkRepository) {
+        this.purchaseRepository = purchaseRepository;
+        this.categoryRepository = categoryRepository;
+        this.checkRepository = checkRepository;
+    }
 
     @Override
     @Transactional(value = "cashreceipt-tx", readOnly = true)
@@ -61,26 +65,22 @@ public class PurchaseFacadeImpl implements PurchasesFacade {
         Purchase p;
 
         if (purchase.getPurchaseId() != null) {
-//            Validate.isTrue(purchase.getDateTime() == null, "Unable to change date of purchase");
-//            Validate.isTrue(purchase.getPrice() == null, "Unable to change price of purchase");
-//            Validate.isTrue(purchase.getQuantity() == null, "Unable to change quantity of purchase");
-//            Validate.isTrue(purchase.getName() == null, "Unable to change name of purchase");
             p = purchaseRepository.find(new PurchaseId(purchase.getPurchaseId()));
 
-            if(purchase.getName() != null) {
+            if (purchase.getName() != null) {
                 p.setName(purchase.getName());
             }
 
-            if(purchase.getDateTime() != null) {
+            if (purchase.getDateTime() != null) {
                 p.setDateTime(purchase.getDateTime());
             }
 
-            if(purchase.getPrice() != null) {
+            if (purchase.getPrice() != null) {
                 Money price = Money.ofRaw(purchase.getPrice().getAmount(), Currency.getInstance(purchase.getPrice().getCurrency()));
                 p.setPrice(price);
             }
 
-            if(purchase.getQuantity() != null) {
+            if (purchase.getQuantity() != null) {
                 p.setQuantity(BigDecimal.valueOf(purchase.getQuantity()));
             }
         } else {
@@ -91,9 +91,6 @@ public class PurchaseFacadeImpl implements PurchasesFacade {
         if (purchase.getCheckId() != null) {
             p.assignCheck(new CheckId(purchase.getCheckId()));
         }
-//        if (purchase.getOperationId() != null) {
-//            p.assignOperation(new OperationId(purchase.getOperationId()));
-//        }
         if (purchase.getCategoryId() != null) {
             p.assignCategory(categoryRepository.findById(new PurchaseCategoryId(purchase.getCategoryId())));
         }
@@ -108,16 +105,12 @@ public class PurchaseFacadeImpl implements PurchasesFacade {
     public List<PurchaseDTO> createPurchasesFromCheck(String checkId) {
         final CheckId cid = new CheckId(checkId);
         final Check check = checkRepository.find(cid);
-//        final OperationId operationId = check.operations().isEmpty() ? null : check.operations().get(0);
         final PurchaseDTOAssembler assembler = new PurchaseDTOAssembler();
         return check.products().items().stream()
                 .map(i -> {
                     final PurchaseId pid = PurchaseId.nextId();
                     final Purchase p = new Purchase(pid, i.name(), check.dateTime(), i.price(), BigDecimal.valueOf(i.quantity()));
                     p.assignCheck(cid);
-//                    if (operationId != null) {
-//                        p.assignOperation(operationId);
-//                    }
                     purchaseRepository.store(p);
                     return assembler.toDTO(p);
                 })
