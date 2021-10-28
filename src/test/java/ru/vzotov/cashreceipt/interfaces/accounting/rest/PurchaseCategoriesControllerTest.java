@@ -1,5 +1,6 @@
 package ru.vzotov.cashreceipt.interfaces.accounting.rest;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.vzotov.cashreceipt.interfaces.accounting.facade.dto.PurchaseCategoryDTO;
 import org.assertj.core.api.Condition;
 import org.junit.Before;
@@ -23,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:application-test.properties")
+@Transactional
 public class PurchaseCategoriesControllerTest {
 
     @Autowired

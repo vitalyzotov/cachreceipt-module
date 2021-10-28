@@ -1,5 +1,6 @@
 package ru.vzotov.cashreceipt.application.impl;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.vzotov.cashreceipt.domain.model.CheckId;
 import ru.vzotov.cashreceipt.domain.model.QRCodeData;
 import ru.vzotov.cashreceipt.application.CheckNotFoundException;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class CheckRegistrationServiceImplTest {
     private static final Logger log = LoggerFactory.getLogger(CheckRegistrationServiceImplTest.class);
 

@@ -1,5 +1,6 @@
 package ru.vzotov.cashreceipt.interfaces.accounting.rest;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.vzotov.cashreceipt.domain.model.QRCodeData;
 import ru.vzotov.cashreceipt.application.nalogru2.CheckRepositoryNalogru2;
 import ru.vzotov.cashreceipt.interfaces.accounting.facade.dto.QRCodeDTO;
@@ -41,6 +42,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:application-test.properties")
+@Transactional
 public class AccountingControllerTest {
 
     @MockBean

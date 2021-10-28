@@ -1,5 +1,6 @@
 package ru.vzotov.cashreceipt.interfaces.accounting.facade.impl;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.vzotov.cashreceipt.domain.model.CheckId;
 import ru.vzotov.cashreceipt.domain.model.PurchaseCategoryId;
 import ru.vzotov.cashreceipt.application.CheckItemNotFoundException;
@@ -24,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class CashreceiptsFacadeImplTest {
 
     @Autowired

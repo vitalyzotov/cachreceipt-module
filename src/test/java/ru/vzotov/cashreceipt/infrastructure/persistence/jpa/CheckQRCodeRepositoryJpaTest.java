@@ -1,5 +1,6 @@
 package ru.vzotov.cashreceipt.infrastructure.persistence.jpa;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.vzotov.cashreceipt.domain.model.CheckId;
 import ru.vzotov.cashreceipt.domain.model.CheckQRCode;
 import ru.vzotov.cashreceipt.domain.model.QRCodeData;
@@ -24,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @Import({DatasourceConfig.class, JpaConfig.class})
+@Transactional
 public class CheckQRCodeRepositoryJpaTest {
 
     @Autowired

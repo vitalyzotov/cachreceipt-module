@@ -11,6 +11,6 @@ public class ApplicationTest {
     @SuppressWarnings("EmptyMethod")
     @Test
     public void contextLoads() {
-        // просто проверяем загрузку контекста
+        // just test spring context loading
     }
 }

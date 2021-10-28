@@ -1,5 +1,6 @@
 package ru.vzotov.cashreceipt.interfaces.accounting.rest;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.vzotov.cashreceipt.interfaces.accounting.rest.dto.NalogPreAuthRequest;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:application-test.properties")
+@Transactional
 public class ConfigControllerTest {
 
     public static final String ACCOUNTING_CONFIG_NALOG_AUTH = "/accounting/config/nalog-auth";

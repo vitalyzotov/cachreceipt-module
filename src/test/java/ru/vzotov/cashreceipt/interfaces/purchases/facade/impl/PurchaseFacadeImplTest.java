@@ -1,5 +1,6 @@
 package ru.vzotov.cashreceipt.interfaces.purchases.facade.impl;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.vzotov.cashreceipt.interfaces.purchases.facade.PurchasesFacade;
 import ru.vzotov.cashreceipt.interfaces.purchases.facade.dto.PurchaseDTO;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class PurchaseFacadeImplTest {
 
     @Autowired

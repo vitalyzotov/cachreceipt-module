@@ -1,5 +1,6 @@
 package ru.vzotov.cashreceipt.infrastructure.persistence.jpa;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.vzotov.cashreceipt.domain.model.CheckId;
 import ru.vzotov.purchase.domain.model.Purchase;
 import ru.vzotov.purchase.domain.model.PurchaseId;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @Import({DatasourceConfig.class, JpaConfig.class})
+@Transactional
 public class PurchaseRepositoryJpaTest {
 
     private static final Logger log = LoggerFactory.getLogger(PurchaseRepositoryJpaTest.class);
