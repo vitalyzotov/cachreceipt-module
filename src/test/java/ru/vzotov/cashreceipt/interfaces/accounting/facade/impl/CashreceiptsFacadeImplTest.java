@@ -42,7 +42,7 @@ public class CashreceiptsFacadeImplTest {
     public void getCheck() {
         CheckDTO check = facade.getCheck("t=20180616T1355&s=656.24&fn=8710000100313204&i=110992&fp=2128735201&n=1");
         assertThat(check).isNotNull();
-        assertThat(check.getDateTime()).isEqualByComparingTo(LocalDateTime.of(2018, Month.JUNE, 16, 13, 55, 0));
+        assertThat(check.getDateTime()).isEqualTo(LocalDateTime.of(2018, Month.JUNE, 16, 13, 55, 0));
 
         check = facade.getCheck("t=20200112T1055&s=110.00&fn=9280440300024677&i=35260&fp=1993523059&n=1");
         assertThat(check).isNotNull();

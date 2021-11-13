@@ -26,7 +26,7 @@ public class CheckDTOAssemblerTest {
 
         assertThat(dto).isNotNull();
         assertThat(dto.getDateTime())
-                .isEqualByComparingTo(LocalDateTime.of(2018, JULY, 17, 17, 8, 0));
+                .isEqualTo(LocalDateTime.of(2018, JULY, 17, 17, 8, 0));
 
         assertThat(dto.getTotalSum().getAmount()).isEqualTo(15000);
         assertThat(dto.getTotalSum().getCurrency()).isEqualTo("RUR");

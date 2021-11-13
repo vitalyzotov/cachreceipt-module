@@ -1,5 +1,6 @@
 package ru.vzotov.cashreceipt.infrastructure.persistence.jpa;
 
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.transaction.annotation.Transactional;
 import ru.vzotov.cashreceipt.domain.model.CheckId;
 import ru.vzotov.cashreceipt.domain.model.CheckQRCode;
@@ -24,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import({DatasourceConfig.class, JpaConfig.class})
 @Transactional
 public class CheckQRCodeRepositoryJpaTest {
@@ -57,7 +59,7 @@ public class CheckQRCodeRepositoryJpaTest {
     @Test
     public void loadedAt() {
         CheckQRCode code = repository.find(new CheckId("20180616135500_65624_8710000100313204_110992_2128735201_1"));
-        assertThat(code.loadedAt()).isEqualByComparingTo(OffsetDateTime.of(
+        assertThat(code.loadedAt()).isEqualTo(OffsetDateTime.of(
                 LocalDateTime.of(2018, Month.JUNE, 16, 14, 0, 0), ZoneOffset.UTC
         ));
 
@@ -65,7 +67,7 @@ public class CheckQRCodeRepositoryJpaTest {
         OffsetDateTime newTimestamp = code.loadedAt();
         repository.store(code);
         code = repository.find(new CheckId("20180616135500_65624_8710000100313204_110992_2128735201_1"));
-        assertThat(code.loadedAt()).isEqualByComparingTo(newTimestamp);
+        assertThat(code.loadedAt()).isEqualTo(newTimestamp);
     }
 
     @Test

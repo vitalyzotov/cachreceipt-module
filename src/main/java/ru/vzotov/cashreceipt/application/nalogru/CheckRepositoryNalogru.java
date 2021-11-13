@@ -35,7 +35,7 @@ public class CheckRepositoryNalogru {
     public CheckRepositoryNalogru(RestTemplateBuilder restTemplateBuilder,
                                   @Value("${nalogru.username}") String username, @Value("${nalogru.password}") String password) {
         this.restTemplate = restTemplateBuilder
-                .basicAuthorization(username, password)
+                .basicAuthentication(username, password)
                 .additionalInterceptors((request, body, execution) -> {
                     request.getHeaders().add("device-os", "");
                     request.getHeaders().add("device-id", "");
