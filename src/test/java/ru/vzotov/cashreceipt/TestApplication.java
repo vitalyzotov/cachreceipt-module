@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 )
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
-@Import(CashreceiptsModule.class)
+@Import({CashreceiptsModule.class})
 public class TestApplication {
     public static void main(String[] args) {
         SpringApplication.run(TestApplication.class, args);

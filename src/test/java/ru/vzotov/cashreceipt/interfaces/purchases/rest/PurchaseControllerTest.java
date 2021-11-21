@@ -1,6 +1,8 @@
 package ru.vzotov.cashreceipt.interfaces.purchases.rest;
 
+import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;
+import ru.vzotov.cashreceipt.ApplicationSecurity;
 import ru.vzotov.cashreceipt.interfaces.common.dto.MoneyDTO;
 import ru.vzotov.cashreceipt.interfaces.purchases.facade.dto.PurchaseDTO;
 import ru.vzotov.cashreceipt.interfaces.purchases.rest.dto.PurchaseStoreRequest;
@@ -24,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:application-test.properties")
+@Import(ApplicationSecurity.class)
 @Transactional
 public class PurchaseControllerTest {
     @Autowired

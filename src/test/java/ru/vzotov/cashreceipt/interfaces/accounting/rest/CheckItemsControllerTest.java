@@ -1,6 +1,8 @@
 package ru.vzotov.cashreceipt.interfaces.accounting.rest;
 
+import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;
+import ru.vzotov.cashreceipt.ApplicationSecurity;
 import ru.vzotov.cashreceipt.interfaces.accounting.rest.dto.CheckItemCategoryPatch;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:application-test.properties")
+@Import(ApplicationSecurity.class)
 @Transactional
 public class CheckItemsControllerTest {
 

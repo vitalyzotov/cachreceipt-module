@@ -1,18 +1,19 @@
 package ru.vzotov.cashreceipt.infrastructure.persistence.jpa;
 
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.transaction.annotation.Transactional;
-import ru.vzotov.cashreceipt.domain.model.CheckId;
-import ru.vzotov.cashreceipt.domain.model.CheckQRCode;
-import ru.vzotov.cashreceipt.domain.model.QRCodeData;
-import ru.vzotov.cashreceipt.config.DatasourceConfig;
-import ru.vzotov.cashreceipt.domain.model.CheckQRCodeRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+import ru.vzotov.cashreceipt.ApplicationSecurity;
+import ru.vzotov.cashreceipt.config.DatasourceConfig;
+import ru.vzotov.cashreceipt.domain.model.CheckId;
+import ru.vzotov.cashreceipt.domain.model.CheckQRCode;
+import ru.vzotov.cashreceipt.domain.model.CheckQRCodeRepository;
+import ru.vzotov.cashreceipt.domain.model.QRCodeData;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@DataJpaTest(excludeAutoConfiguration = ApplicationSecurity.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import({DatasourceConfig.class, JpaConfig.class})
 @Transactional

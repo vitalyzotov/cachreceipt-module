@@ -1,6 +1,10 @@
 package ru.vzotov.cashreceipt.interfaces.accounting.rest;
 
+import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import ru.vzotov.cashreceipt.ApplicationSecurity;
 import ru.vzotov.cashreceipt.domain.model.QRCodeData;
 import ru.vzotov.cashreceipt.application.nalogru2.CheckRepositoryNalogru2;
 import ru.vzotov.cashreceipt.interfaces.accounting.facade.dto.QRCodeDTO;
@@ -43,6 +47,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:application-test.properties")
+@Import(ApplicationSecurity.class)
 @Transactional
 public class AccountingControllerTest {
 
@@ -67,6 +72,7 @@ public class AccountingControllerTest {
                 HttpMethod.GET,
                 new HttpEntity<>(headers),
                 QRCodeDTO[].class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotEmpty();
         QRCodeDTO expected = new QRCodeDTO(
                 "20180616135500_65624_8710000100313204_110992_2128735201_1",
